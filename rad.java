@@ -17,10 +17,13 @@ public class Radix
     //main function to call all my functions
     public static void main(String args[]) 
     {
+        //int[] radArray = {10,22,654,653,23,1,0}
+        //Customization of our Array
         int maxElements = 50;
         int min = 0;
         int max = 9999;
         int[] radArray = new int[maxElements];
+        
         //Calls to each respective function
         populate(radArray,maxElements,max,min);
         //Printout of unsorted Array
@@ -46,7 +49,7 @@ public class Radix
     {
     //Initial List
     List<Integer>[] buckets = new ArrayList[10];
-        //Creates buckets 0...9(I don't know why but using loops fails every 20 odd runs)
+        //Creates buckets 0...9(I don't know why but using the loop fails every 20 odd runs)
         buckets[0] = new ArrayList<Integer>();
         buckets[1] = new ArrayList<Integer>();
         buckets[2] = new ArrayList<Integer>();
@@ -76,6 +79,18 @@ public class Radix
             }
             //increase modulous divisor to the next column
             m *= 10;
+            //The buckets are emptied back into our original array sorted in the nth column
+            int a = 0;
+            //Cycles through each primary list(Can be reversed for GSD)
+            for (int k = 0; k < 10; k++) 
+            {
+                //emptys the secondary lists in order of LSD(can be reversed for GSD)
+                for (Integer i : buckets[k]) 
+                {radArray[a++] = i;/*System.out.println("Bucket element" + i );*/}
+                //empties buckets after each secondary list is copied for the next time we run the cycle
+                buckets[k].clear();
+                //System.out.println("Next Bucket" + k );
+            }
         }
     }
     //Populates Array with random integers
